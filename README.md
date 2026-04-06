@@ -19,6 +19,7 @@
   - `https://api.minecraftservices.com/authentication/login_with_xbox`
   - `https://api.minecraftservices.com/entitlements/mcstore`
   - `https://api.minecraftservices.com/minecraft/profile`
+  - `https://api.minecraftservices.com/minecraft/profile/skins (PUT/GET/DELETE)
 
 ## 遵守准则声明
 
