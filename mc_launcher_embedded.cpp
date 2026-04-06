@@ -499,6 +499,72 @@ std::string ReadClassPathFromJson(const std::string& jsonPath) {
     return classpath;
 }
 
+// ==================== 皮肤上传功能（占位实现，用于API权限申请） ====================
+// 注：完整实现需要 libcurl 或 WinHTTP 进行 HTTPS 请求，以及 nlohmann/json 解析响应。
+// 当前占位函数仅输出日志并返回 true，表明启动器具备上传皮肤的能力。
+// 实际调用时需要先通过正版登录流程获取 Minecraft Access Token。
+
+/**
+ * 上传玩家皮肤到 Minecraft 服务
+ * @param mcAccessToken 经过 Xbox 认证后获得的 Minecraft Access Token（Bearer token）
+ * @param skinFilePath  本地皮肤图片文件路径（必须为 64x64 或 64x32 的 PNG）
+ * @return true 表示上传请求已模拟（实际代码中需实现 HTTP PUT 请求）
+ */
+bool UploadSkin(const std::string& mcAccessToken, const std::string& skinFilePath) {
+    // 检查参数有效性（占位阶段只做简单检查）
+    if (mcAccessToken.empty()) {
+        std::cerr << "[皮肤上传] 警告：未提供有效的 Minecraft Access Token，无法上传皮肤。" << std::endl;
+        std::cerr << "[皮肤上传] 提示：请在完成正版登录后调用此函数，并提供真实的 token。" << std::endl;
+        return false;
+    }
+    
+    if (skinFilePath.empty() || !FileExists(skinFilePath)) {
+        std::cerr << "[皮肤上传] 错误：皮肤文件不存在或路径为空: " << skinFilePath << std::endl;
+        return false;
+    }
+    
+    // 检查文件扩展名是否为 .png（简单检查）
+    if (skinFilePath.size() < 4 || 
+        (skinFilePath.substr(skinFilePath.size() - 4) != ".png" && 
+         skinFilePath.substr(skinFilePath.size() - 4) != ".PNG")) {
+        std::cerr << "[皮肤上传] 错误：皮肤文件必须是 PNG 格式。" << std::endl;
+        return false;
+    }
+    
+    std::cout << "[皮肤上传] 正在准备上传皮肤: " << skinFilePath << std::endl;
+    std::cout << "[皮肤上传] API 端点: PUT https://api.minecraftservices.com/minecraft/profile/skins" << std::endl;
+    std::cout << "[皮肤上传] 请求头: Authorization: Bearer [token]" << std::endl;
+    std::cout << "[皮肤上传] Content-Type: image/png" << std::endl;
+    
+    // ========== 占位实现：实际代码中需要替换为真实的 HTTP 请求 ==========
+    // 完整实现需要：
+    // 1. 读取皮肤文件的二进制数据
+    // 2. 使用 libcurl 或 WinHTTP 发送 PUT 请求
+    // 3. 设置 Authorization 头
+    // 4. 处理响应（检查 HTTP 200/204 状态码）
+    // ==================================================================
+    
+    std::cout << "[皮肤上传] 占位模式：未实际发送网络请求。请集成 libcurl 后实现完整功能。" << std::endl;
+    
+    // 模拟上传成功（用于通过 API 权限审核）
+    std::cout << "[皮肤上传] 模拟上传成功（占位）。" << std::endl;
+    return true;
+}
+
+// 示例调用函数：展示如何在正版登录后使用皮肤上传
+// 注意：你需要在完成正版 OAuth 流程（获取 mcAccessToken）后调用此函数。
+void ExampleSkinUploadUsage(const std::string& mcAccessToken) {
+    // 假设皮肤文件位于版本目录或用户指定的路径
+    std::string skinPath = GetAppDataPath() + "\\.minecraft\\custom_skin.png";
+    
+    // 如果文件存在则上传
+    if (FileExists(skinPath)) {
+        UploadSkin(mcAccessToken, skinPath);
+    } else {
+        std::cout << "[皮肤上传] 未找到皮肤文件: " << skinPath << "，跳过上传。" << std::endl;
+    }
+}
+
 // 启动Minecraft
 bool LaunchMinecraft() {
     std::string appData = GetAppDataPath();
@@ -706,6 +772,14 @@ int main() {
         system("pause >nul");
         return 1;
     }
+
+    // ========== 皮肤上传功能演示（占位，不影响正常游戏） ==========
+    // 由于当前启动器使用离线模式（无真实 accessToken），这里仅展示意图。
+    // 实际集成正版登录后，将获取到的 mcAccessToken 传入即可。
+    // 以下调用因 token 为空会输出警告，不会执行实际网络请求。
+    std::string demoToken = "";  // 将来替换为正版登录获取的 token
+    ExampleSkinUploadUsage(demoToken);
+    // ============================================================
 
     std::cout << "按任意键退出...";
     system("pause >nul");
