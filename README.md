@@ -39,6 +39,6 @@
 ### 编译与运行
 
 ```bash
-git clone https://github.com/huanghaoran-7584/Legacy-Console-Launcher/Legacy-Console-Launcher.git
+git clone https://github.com/warningnotguy/Legacy-Console-Launcher/Legacy-Console-Launcher.git
 cd Legacy-Console-Launcher
 .\build.bat
