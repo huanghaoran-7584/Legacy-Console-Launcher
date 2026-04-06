@@ -1,10 +1,8 @@
-# [你的启动器名称]
-
-[一句话描述你的启动器，例如：一个轻量级的 Minecraft Java Edition 启动器，支持正版账户登录和游戏管理]
+# Legacy-Console-Launcher
 
 ## 项目简介
 
-本项目是一个开源/免费的 Minecraft 启动器，旨在为玩家提供安全、便捷的正版游戏启动体验。启动器遵循 [Minecraft EULA](https://www.minecraft.net/zh-hans/eula) 及 [Minecraft 使用准则](https://aka.ms/mcusageguidelines)。
+本项目是一个免费的 Minecraft 启动器，旨在为玩家提供安全、便捷的正版游戏启动体验。启动器遵循 [Minecraft EULA](https://www.minecraft.net/zh-hans/eula) 及 [Minecraft 使用准则](https://aka.ms/mcusageguidelines)。
 
 ## 核心功能
 
@@ -35,15 +33,12 @@
 ### 环境要求
 
 - C++17 或更高版本
-- libcurl（HTTP 请求）
-- nlohmann/json（JSON 解析）
+- g++ 编译器
+- Windows10 及以上版本
 
 ### 编译与运行
 
 ```bash
-git clone https://github.com/你的用户名/你的仓库名.git
-cd 你的仓库名
-# 根据你的构建系统进行编译，例如：
-mkdir build && cd build
-cmake ..
-make
+git clone https://github.com/huanghaoran-7584/Legacy-Console-Launcher/Legacy-Console-Launcher.git
+cd Legacy-Console-Launcher
+.\build.bat
